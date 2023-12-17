@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  
+  <script>
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBJR-vBtBn2R1wMQTnGIlcbUonhinThfKc",
+      authDomain: "user-b753c.firebaseapp.com",
+      projectId: "user-b753c",
+      // Add other Firebase config keys as needed
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Function to handle sign up
+    function signUp() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (password !== confirmPassword) {
+        document.getElementById('error-message').innerText = "Passwords do not match.";
+        return;
+      }
+
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Sign up successful, redirect to login page
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          // Handle signup errors
+          const errorMessage = error.message;
+          // Display error message on the page
+          document.getElementById('error-message').innerText = errorMessage;
+        });
+    }
+  </script>
+</head>
+<body>
+  <div class="card">
+    <h1>Sign Up</h1>
+    <form id="signup-form">
+      <input type="email" id="email" placeholder="Enter your Email" required>
+      <input type="password" id="password" placeholder="Create a Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <button type="button" onclick="signUp()">Sign Up</button>
+      <p id="error-message"></p>
+    </form>
+    <p>Already have an account? <a href="index.html">Login</a></p>
+  </div>
+</body>
+</html>

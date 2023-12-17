@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  
+  <script>
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBJR-vBtBn2R1wMQTnGIlcbUonhinThfKc",
+      authDomain: "user-b753c.firebaseapp.com",
+      projectId: "user-b753c",
+      // Add other Firebase config keys as needed
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Function to handle login
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Redirect to user info page upon successful login
+          window.location.href = "user_info.html";
+        })
+        .catch((error) => {
+          // Handle login errors
+          const errorMessage = error.message;
+          // Display error message on the page
+          document.getElementById('error-message').innerText = errorMessage;
+        });
+    }
+  </script>
+</head>
+<body>
+  <div class="card">
+    <h1>Login Now</h1>
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Enter your Email" required>
+      <input type="password" id="password" placeholder="Enter your Password" required>
+      <button type="button" onclick="login()">Login</button>
+      <p id="error-message"></p>
+    </form>
+    <p>Don't have an account? <a href="signin.html">Sign up from here</a></p>
+    <br>
+    <p><a href="forgot_password.html">Forgot password?</a></p>
+  </div>
+  <script>
+    // You can add a script here to handle form submission if needed.
+  </script>
+</body>
+</html>
